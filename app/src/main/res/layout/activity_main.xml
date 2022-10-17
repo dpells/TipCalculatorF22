@@ -109,7 +109,8 @@
                 android:id="@+id/num_people_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5">
+                android:layout_weight="5"
+                android:checkedButton="@id/two_people_rb">
 
                 <RadioButton
                     android:id="@+id/one_person_rb"
@@ -120,12 +121,12 @@
                     android:id="@+id/two_people_rb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/two_people_string" />
+                    android:text="@string/two_people_string"/>
                 <RadioButton
                     android:id="@+id/three_people_rb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/three_people_string" />
+                    android:text="@string/three_people_string"/>
                 <RadioButton
                     android:id="@+id/four_people_rb"
                     android:layout_width="match_parent"
@@ -176,11 +177,5 @@
                 android:layout_weight="5"
                 android:text="@string/empty_price_string" />
         </LinearLayout>
-
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ToggleButton" />
     </LinearLayout>
 </ScrollView>
