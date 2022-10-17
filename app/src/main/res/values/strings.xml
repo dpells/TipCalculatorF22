@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TipCalculatorS22</string>
+    <string name="bill_amount_string">Bill Amount</string>
+    <string name="empty_price_string">$0.00</string>
+    <string name="tip_percent_string">Tip Percent</string>
+    <string name="empty_percent_string">0%</string>
+    <string name="tip_amount_string">Tip Amount</string>
+    <string name="number_of_people_string">Number of People</string>
+    <string name="one_person_string">1 person</string>
+    <string name="two_people_string">2 People</string>
+    <string name="three_people_string">3 People</string>
+    <string name="four_people_string">4 People</string>
+    <string name="subtotal_string">Subtotal</string>
+    <string name="total_string">Total</string>
+</resources>
