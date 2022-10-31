@@ -31,7 +31,7 @@
                 android:hint="@string/empty_price_string"
                 android:importantForAutofill="no" />
         </LinearLayout>
-
+        <!-- end Bill AMount Section -->
 
         <!-- Tip Percent -->
         <LinearLayout
@@ -88,6 +88,7 @@
                 android:text="@string/tip_amount_string" />
 
             <TextView
+                android:id="@+id/tipAmountTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -135,6 +136,11 @@
             </RadioGroup>
         </LinearLayout>
 
+        <Spinner
+            android:id="@+id/num_people_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
         <!-- Subtotal -->
         <LinearLayout
@@ -177,5 +183,10 @@
                 android:layout_weight="5"
                 android:text="@string/empty_price_string" />
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
     </LinearLayout>
 </ScrollView>
