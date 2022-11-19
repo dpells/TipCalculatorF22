@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
@@ -73,6 +75,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBa
             Log.i("OnClickListener", "You've clicked a different button")
         }
          */
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_about -> {
+                Toast.makeText(this, "This is the about option", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_settings -> {
+                Toast.makeText(this, "This is the settings option", Toast.LENGTH_SHORT).show()
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     /**
