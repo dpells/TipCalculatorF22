@@ -8,28 +8,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <!-- Bill Amount -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:weightSum="7">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="2"
-                android:text="@string/bill_amount_string"/>
+                android:alpha=".74"
+                style="@style/MyLabel"
+                android:background="#EE1414"
+                android:gravity="center"
+                android:text="@string/bill_amount_string"
+                android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/bill_amount_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:inputType="numberDecimal"
                 android:hint="@string/empty_price_string"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal" />
         </LinearLayout>
         <!-- end Bill AMount Section -->
 
@@ -44,25 +51,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@string/tip_percent_string"/>
+                android:padding="10dp"
+                style="@style/MyLabel"
+                android:text="@string/tip_percent_string" />
+
             <Button
                 android:id="@+id/dec_tip_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:rotation="98"
+                android:rotationX="-65"
+                android:rotationY="59"
                 android:text="-"
                 tools:ignore="HardcodedText" />
+
             <TextView
                 android:id="@+id/tip_percent_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="center"
                 android:text="@string/empty_percent_string" />
+
             <Button
                 android:id="@+id/inc_tip_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="#25947A"
+                android:foregroundTint="#22AA5B"
                 android:text="+"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
@@ -72,7 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:max="100" />
+            android:max="100"
+            android:thumbTint="#0424F4" />
 
         <!-- Tip Amount -->
         <LinearLayout
@@ -85,6 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                style="@style/MyLabel"
                 android:text="@string/tip_amount_string" />
 
             <TextView
@@ -105,7 +125,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                style="@style/MyLabel"
                 android:text="@string/number_of_people_string" />
+
             <RadioGroup
                 android:id="@+id/num_people_group"
                 android:layout_width="0dp"
@@ -118,16 +140,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/one_person_string" />
+
                 <RadioButton
                     android:id="@+id/two_people_rb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/two_people_string"/>
+                    android:buttonTint="#2A54AE"
+                    android:text="@string/two_people_string"
+                    android:textColorLink="#1B4091" />
+
                 <RadioButton
                     android:id="@+id/three_people_rb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/three_people_string"/>
+                    android:text="@string/three_people_string" />
+
                 <RadioButton
                     android:id="@+id/four_people_rb"
                     android:layout_width="match_parent"
@@ -155,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/subtotal_string" />
+
             <TextView
                 android:id="@+id/subtotal_tv"
                 android:layout_width="0dp"
@@ -176,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/total_string" />
+
             <TextView
                 android:id="@+id/total_amount_tv"
                 android:layout_width="0dp"

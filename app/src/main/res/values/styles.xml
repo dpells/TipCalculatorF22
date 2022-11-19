@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="myTextView">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">monospace</item>
+    </style>
+
+    <style name="MyLabel" parent="myTextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#F2ffffff</item>
+    </style>
+
+    <style name="myRB" parent="myTextView">
+        <item name="buttonTint">#2A54AE</item>
+    </style>
+
+</resources>

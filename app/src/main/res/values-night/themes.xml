@@ -12,5 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/myTextView</item>
+        <item name="radioButtonStyle">@style/myRB</item>
     </style>
 </resources>
