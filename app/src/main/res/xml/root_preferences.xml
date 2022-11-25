@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="prefs_save_values"
+        android:title="Save Data"
+        android:summary="Save the values on exit" />
+
+    <ListPreference
+        android:defaultValue="@string/no_rounding"
+        android:entries="@array/rounding_text"
+        android:entryValues="@array/rounding_values"
+        android:key="prefs_rounding"
+        android:title="Rounding"
+        app:summary="Select how to round the values" />
+
+
+</PreferenceScreen>

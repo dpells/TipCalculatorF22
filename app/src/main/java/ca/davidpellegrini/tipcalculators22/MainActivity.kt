@@ -1,7 +1,10 @@
 package ca.davidpellegrini.tipcalculators22
 
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -9,9 +12,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
 import java.text.NumberFormat
 import ca.davidpellegrini.tipcalculators22.databinding.ActivityMainBinding
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBarChangeListener,
     RadioGroup.OnCheckedChangeListener, AdapterView.OnItemSelectedListener,
@@ -21,12 +24,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBa
     private var _tipPercent = 0.2f
     private val currentyFormat = NumberFormat.getCurrencyInstance()
     private val percentFormat = NumberFormat.getPercentInstance()
-
+    private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         val decreaseTipButton = binding.decTipBtn
         decreaseTipButton.setOnClickListener(this)
@@ -77,6 +82,46 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBa
          */
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val billAmountString = sharedPrefs.getString("prefs_bill_amount", "")
+        binding.billAmountEt.setText(billAmountString)
+        _tipPercent = sharedPrefs.getFloat("prefs_tip_percent", 0.2f)
+        when (sharedPrefs.getInt("prefs_num_people", 2)) {
+            1 -> binding.numPeopleGroup.check(R.id.one_person_rb)
+            2 -> binding.numPeopleGroup.check(R.id.two_people_rb)
+            3 -> binding.numPeopleGroup.check(R.id.three_people_rb)
+            4 -> binding.numPeopleGroup.check(R.id.four_people_rb)
+            else -> binding.numPeopleGroup.check(R.id.two_people_rb)
+        }
+
+        updateScreen()
+    }
+
+    override fun onPause() {
+
+        val editor = sharedPrefs.edit()
+        if (sharedPrefs.getBoolean("prefs_save_values", false)) {
+            editor.putString("prefs_bill_amount", binding.billAmountEt.text.toString())
+            editor.putFloat("prefs_tip_percent", _tipPercent)
+            when(binding.numPeopleGroup.checkedRadioButtonId){
+                R.id.one_person_rb -> editor.putInt("prefs_num_people", 1)
+                R.id.two_people_rb -> editor.putInt("prefs_num_people", 2)
+                R.id.three_people_rb -> editor.putInt("prefs_num_people", 3)
+                R.id.four_people_rb -> editor.putInt("prefs_num_people", 4)
+                else -> editor.putInt("prefs_num_people", 2)
+            }
+        }
+        else {
+            editor.clear()
+            editor.putBoolean("prefs_save_values", false)
+        }
+        editor.apply()
+
+        super.onPause()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options, menu)
         return true
@@ -88,7 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBa
                 Toast.makeText(this, "This is the about option", Toast.LENGTH_SHORT).show()
             }
             R.id.menu_settings -> {
-                Toast.makeText(this, "This is the settings option", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
             else -> return super.onOptionsItemSelected(item)
         }
@@ -115,7 +160,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBa
             }
         }
 
-        binding.tipPercentSb.setProgress((_tipPercent * 100).toInt(), true)
+
         updateScreen()
 
         Log.i("Button", "You clicked decrease so the value will change")
@@ -245,16 +290,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SeekBar.OnSeekBa
     }
 
     private fun updateScreen(){
+        val roundingValue = sharedPrefs.getString("prefs_rounding", getString(R.string.no_rounding))
+
         // how much is the bill
         val billAmountString = binding.billAmountEt.text.toString()
         var billAmount = 0f;
         if(billAmountString.isNotEmpty() && billAmountString.isNotBlank()){
             billAmount = billAmountString.toFloat()
         }
+
+        binding.tipPercentSb.setProgress((_tipPercent * 100).toInt(), true)
+
         // calculate the tip amount
-        val tipAmount = billAmount * _tipPercent
+        var tipAmount = billAmount * _tipPercent
+        if (roundingValue.equals(getString(R.string.round_tip))) {
+           tipAmount = tipAmount.roundToInt().toFloat()
+        }
         // calculate the subtotal
-        val subtotal = tipAmount + billAmount
+        var subtotal = tipAmount + billAmount
+        if (roundingValue.equals(getString(R.string.round_total))) {
+            subtotal = subtotal.roundToInt().toFloat()
+            tipAmount = subtotal - billAmount
+        }
         // calculate the total (with num people)
         var numPeople = 2
         //when(binding.numPeopleSpinner.selectedItemPosition)
